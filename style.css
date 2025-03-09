@@ -2,10 +2,13 @@ body {
     margin: 0;
     padding: 0;
     font-family: 'Roboto', sans-serif;
+}
+
+body, .modal {
     background-color: #f7f7f7;
 }
 
-.header {
+.page.header {
     text-align: center;
     border-bottom: 1px solid #333;
     box-shadow: 0 0 15px rgba(0,0,0,0.75);
@@ -24,7 +27,7 @@ img.logo {
     height: auto;
 }
 
-button.add  {
+button  {
     border: 1px solid black;
     padding: 12px;
     border-radius: 8px;
@@ -33,10 +36,73 @@ button.add  {
     font-family: 'Roboto', sans-serif;
 }
 
-button.add:hover {
+button:hover {
     background-color: black;
     color: white;
     cursor: pointer;
+}
+
+.modal::backdrop {
+    background-color: rgba(0,0,0,0.75);
+}
+
+.modal {
+    height: 80%;
+    width: 30%;
+    border-radius: 8px;
+    border: none;
+    padding: 0;
+}
+
+.modal.header {
+    width: 100%;
+    border-bottom: 1px solid #333;
+    box-shadow: 0 0 15px rgba(0,0,0,0.75);
+    clip-path: inset(0  0 -15px 0);
+    background-color: white;
+    border-radius: 0;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    margin-bottom: 40px;
+}
+
+.modal h2 {
+    margin: 0;
+}
+
+.form-row {
+    margin-bottom: 20px;
+    display: flex;
+    justify-content: flex-start;
+    flex-direction: column;
+    flex-wrap: wrap;
+    padding-left: 20px;
+    padding-right: 20px;
+}
+  
+  .form-row input {
+    background-color: #FFFFFF;
+    border: 1px solid #D6D9DC;
+    border-radius: 3px;
+    width: 100%;
+    font-size: 14px;
+    padding-top: 8px;
+    padding-bottom: 8px;
+}
+  
+  .form-row label {
+    align-self: flex-start;
+    margin-bottom: 15px;
+}
+
+.modal .btns {
+    margin: 40px 20px 0 20px;
+    padding-top: 20px;
+    border-top: 1px solid #D6D9DC;
+}
+
+.btns button {
+    margin: 20px 10px 0 0;
 }
 
 .table-container {
