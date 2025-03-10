@@ -31,7 +31,6 @@ save.addEventListener("click", () => {
 
     addBookToLibrary(newTitle, newAuthor, newPages, NewRead);
     modal.close();
-    
 })
 
 const myLibrary = [];
@@ -55,17 +54,18 @@ function addBookToLibrary(title,author,pages,read) {
 }
 
 function displayBook(book) {
-    const tableRow = table.insertRow(-1);
+    const tableRow = table.insertRow();
     for (const [key,value] of Object.entries(book)) {
         if (key === 'id') {
+            tableRow.setAttribute("id", value);
             continue;
         }
         const tableData = tableRow.insertCell();
         tableData.textContent = value;
         tableData.style.padding = "20px";
     }
-    const tableData =  tableRow.insertCell();
     const delButton = document.createElement("button");
+    const tableData =  tableRow.insertCell();
     delButton.textContent = 'Delete'
     tableData.appendChild(delButton);
     tableData.style.padding = "20px";
@@ -73,4 +73,8 @@ function displayBook(book) {
     tableRow.style.backgroundColor = "white";
     tableRow.style.borderBottom = "1px solid #333";
 
+    delButton.addEventListener("click", () => {
+        const row = delButton.parentNode.parentNode;
+        row.parentNode.removeChild(row);
+    })
 }
