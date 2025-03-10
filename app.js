@@ -31,6 +31,7 @@ save.addEventListener("click", () => {
 
     addBookToLibrary(newTitle, newAuthor, newPages, NewRead);
     modal.close();
+    displayBooks();
 })
 
 const myLibrary = [];
@@ -43,38 +44,39 @@ function Book(id, title,author,pages,read) {
     this.read = read;
 }
 
-const table = document.querySelector("table");
+const tbody = document.querySelector("tbody");
 
 function addBookToLibrary(title,author,pages,read) {
     const id = crypto.randomUUID();
     const book = new Book(id, title, author, pages,read);
     myLibrary.push(book);
-
-    displayBook(book);
 }
 
-function displayBook(book) {
-    const tableRow = table.insertRow();
-    for (const [key,value] of Object.entries(book)) {
-        if (key === 'id') {
-            tableRow.setAttribute("id", value);
-            continue;
+function displayBooks() {
+    tbody.replaceChildren();
+    myLibrary.forEach(function (book) {
+        const tableRow = tbody.insertRow();
+        for (const [key,value] of Object.entries(book)) {
+            if (key === 'id') {
+                tableRow.setAttribute("id", value);
+                continue;
+            }
+            const tableData = tableRow.insertCell();
+            tableData.textContent = value;
+            tableData.style.padding = "20px";
         }
-        const tableData = tableRow.insertCell();
-        tableData.textContent = value;
+        const delButton = document.createElement("button");
+        const tableData =  tableRow.insertCell();
+        delButton.textContent = 'Delete'
+        tableData.appendChild(delButton);
         tableData.style.padding = "20px";
-    }
-    const delButton = document.createElement("button");
-    const tableData =  tableRow.insertCell();
-    delButton.textContent = 'Delete'
-    tableData.appendChild(delButton);
-    tableData.style.padding = "20px";
+    
+        tableRow.style.backgroundColor = "white";
+        tableRow.style.borderBottom = "1px solid #333";
 
-    tableRow.style.backgroundColor = "white";
-    tableRow.style.borderBottom = "1px solid #333";
-
-    delButton.addEventListener("click", () => {
-        const row = delButton.parentNode.parentNode;
-        row.parentNode.removeChild(row);
+        delButton.addEventListener("click", () => {
+            const row = delButton.parentNode.parentNode;
+            row.parentNode.removeChild(row);
+        })
     })
 }
