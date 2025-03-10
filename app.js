@@ -44,6 +44,15 @@ function Book(id, title,author,pages,read) {
     this.read = read;
 }
 
+Book.prototype.changeReadStatus = function() {
+    if (this.read === 'Yes') {
+        this.read = 'No'
+    }
+    else {
+        this.read = 'Yes'
+    }
+}
+
 const tbody = document.querySelector("tbody");
 
 function addBookToLibrary(title,author,pages,read) {
@@ -61,9 +70,36 @@ function displayBooks() {
                 tableRow.setAttribute("id", value);
                 continue;
             }
-            const tableData = tableRow.insertCell();
-            tableData.textContent = value;
-            tableData.style.padding = "20px";
+            if (key === 'read') {
+                const tableData = tableRow.insertCell();
+                const readBtn = document.createElement("button");
+                readBtn.textContent = value;
+                tableData.appendChild(readBtn);
+                tableData.style.padding = "20px";
+
+                readBtn.addEventListener("click", () => {
+                    if (readBtn.textContent === 'Yes') {
+                        readBtn.textContent = 'No';
+                    }
+                    else {
+                        readBtn.textContent = 'Yes';
+                    }
+                    myLibrary.forEach((book) => {
+                        for(const [key,value] of Object.entries(book)) {
+                            if (key === 'id') {
+                                if (id === value) {
+                                    book.changeReadStatus();
+                                }
+                            }
+                        }
+                    })
+                })
+            }
+            else {
+                const tableData = tableRow.insertCell();
+                tableData.textContent = value;
+                tableData.style.padding = "20px";
+            }
         }
         const delButton = document.createElement("button");
         const tableData =  tableRow.insertCell();
