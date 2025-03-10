@@ -54,7 +54,7 @@ function addBookToLibrary(title,author,pages,read) {
 
 function displayBooks() {
     tbody.replaceChildren();
-    myLibrary.forEach(function (book) {
+    myLibrary.forEach((book) => {
         const tableRow = tbody.insertRow();
         for (const [key,value] of Object.entries(book)) {
             if (key === 'id') {
@@ -74,9 +74,22 @@ function displayBooks() {
         tableRow.style.backgroundColor = "white";
         tableRow.style.borderBottom = "1px solid #333";
 
+        const id = tableRow.getAttribute("id")
+
         delButton.addEventListener("click", () => {
             const row = delButton.parentNode.parentNode;
+            
             row.parentNode.removeChild(row);
+
+            myLibrary.forEach((book, index) => {
+                for(const [key,value] of Object.entries(book)) {
+                    if (key === 'id') {
+                        if (id === value) {
+                            myLibrary.splice(index,1);
+                        }
+                    }
+                }
+            })
         })
     })
 }
